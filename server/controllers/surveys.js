@@ -5,7 +5,6 @@ let mongoose = require('mongoose');
 let survey = require('../models/survey');
 
 let takeasurvey = require('../models/takeasurvey');
-<<<<<<< HEAD
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs');
 const path = require('path');
@@ -531,8 +530,6 @@ res.sendFile(filename, function (err) {
 */
 
 }
-=======
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
 
 
 
@@ -639,7 +636,6 @@ module.exports.displayCreateSurveyPage= (req, res, next) => {
     }
 
 
-<<<<<<< HEAD
     module.exports.createSurveyToView= (req, res, next) => {
 
  
@@ -662,8 +658,6 @@ module.exports.displayCreateSurveyPage= (req, res, next) => {
    }
 
 
-=======
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
   module.exports.createSurveyToEdit= (req, res, next) => {
 
  
@@ -677,11 +671,7 @@ module.exports.displayCreateSurveyPage= (req, res, next) => {
      else
      {
          res.render('surveys/editsurvey',{
-<<<<<<< HEAD
              title:'Edit Survey',survey:surveys, displayName: req.user ? req.user.displayName: ''
-=======
-             title:'View and Edit Survey',survey:surveys, displayName: req.user ? req.user.displayName: ''
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
          });
      }
     });
@@ -816,18 +806,13 @@ module.exports.takeASurvey= (req, res, next) => {
 
 
 
-<<<<<<< HEAD
 module.exports.takeAsurveyAndPost= async (req, res, next) => {
-=======
-module.exports.takeAsurveyAndPost= (req, res, next) => {
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
 
    
  
  
     let formRequest = JSON.parse(JSON.stringify(req.body));
     
-<<<<<<< HEAD
 
     //get id from original survey
     let surveyTaken = formRequest.surveyId;
@@ -851,29 +836,6 @@ module.exports.takeAsurveyAndPost= (req, res, next) => {
 
 
 
-=======
-    //let formUser = JSON.parse(JSON.stringify(req.user));
-    
-    
-   // formUser +=formRequest;
-    
-    
-    
-   /* for (var key in formRequest) {
-      if (formRequest.hasOwnProperty(key)) {
-        item = req.user[key];
-   
-        //req.body[key]=item;
-        console.log(key+ " " +item);
-      }
-    }
-
-  */
-
-
-    
-     let a_survey = takeasurvey( formRequest); //Create a new survey
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
      takeasurvey.create(a_survey,(err)=>
   {
   if(err)
@@ -894,7 +856,6 @@ module.exports.takeAsurveyAndPost= (req, res, next) => {
 
 
 
-<<<<<<< HEAD
   
 module.exports.statistics= async (req, res, next) => {
 
@@ -1055,5 +1016,3 @@ module.exports.statistics= async (req, res, next) => {
 }
 
  
-=======
->>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
