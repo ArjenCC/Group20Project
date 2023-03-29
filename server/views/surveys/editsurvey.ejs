@@ -1,0 +1,576 @@
+<% include ../partials/header.ejs %>
+<%- include ../partials/mainNav.ejs %>
+
+<style>
+    #ijsQuestionlength
+    {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
+        display:none ;
+    }
+    hr{
+      display: none;
+    }
+
+<<<<<<< HEAD
+</style>
+
+
+
+
+<div class="container bg-white">
+  
+<form class="form-horizontal col-md-12" method="post" id="form"  >
+  <h1><%= title %></h1>
+
+  <div class="row">
+  <h2 class="display-4 text-success"><%= survey.surveyName %></h2>
+
+  <p class="lead"> 
+      <%= survey.surveyDescription%>
+    </p>
+   </div>
+
+  <br>
+
+
+  <%  console.log(survey.active)  %>  
+  <%  if(survey.active=="on") { %>   
+    <div class="form-check form-switch">
+    <input name=""  type="checkbox"  class="form-check-input"  id="flexSwitchCheckChecked" onchange="checkitout(this)" id="flexSwitchCheckChecked" checked      />
+    <label class="form-check-label" for="flexSwitchCheckChecked"
+      >Activate</label
+    >
+  </div>
+ 
+
+  <%   }%> 
+
+  <%  if(survey.active=="off") { %>  
+    <div class="form-check form-switch">
+      <input name=""   class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  onchange="checkitout(this)"     />
+      <label class="form-check-label" for="flexSwitchCheckChecked"
+        >Activate</label
+      >
+    </div>
+  
+    <%   }%> 
+
+  <br>
+
+  <input name="active" id="ActiveState" type="text" style="display: none;">
+ <!--Questions-->
+
+ <%  if(survey.Questionnaire_type=="multiplechoice") { %>  
+  <div class="row">
+  <input id="ijsQuestionlength" name="Questionlength" value ="<%=survey.Questionlength %>">
+<% for (let count = 0; count < survey.Questionlength; count++) { %>
+  
+
+    <%
+    let question =`Question${count+1}`;
+    
+%>
+
+<!-- -->
+      <div class="col-md-6" >
+
+
+       
+
+
+
+      <div class="row" onmouseenter="canEdit(this)" onmouseleave="cantEdit(this)" onkeyup="canEdit(this)"  style="margin-bottom: 10px;"  >
+        <label class="lead labelcontrol" style="margin-right: 5px;margin-bottom: 10px;"> 
+
+ 
+         Q<%= count+1 %>
+  
+          </label>
+          <hr>
+          <div class="col-sm-8" >
+          <input  class="form-control" id="Question1"  name="<%= question %>"
+              value="<%=survey[question] %>" required readonly="readonly">
+
+            </div>
+
+            <a href="#" class="btn btn-white  col-md-1   d-none d-md-block d-none d-lg-block canEdit "  onclick="editable(this)"  style="visibility: hidden;">
+             
+              <i class="fas fa-pencil-alt fa-1x"></i>
+              </a>
+
+
+              <a href="#" class="btn btn-white btn-xs col-md-1  d-none d-md-block d-none d-lg-block canEdit" onclick="notEditable(this)" style="visibility: hidden;">
+             
+                <i class="far fa-stop-circle"></i>
+                </a>
+
+          </div>
+
+              <!---->
+
+
+
+
+
+
+
+               
+     
+      <% let anslength=question+"AnswerLength" %>
+      <div >
+      <ul class="list-group d-flex flex-wrap" style="list-style-type: none; margin-left: 15px;">
+      <% for (let count = 0; count < survey[anslength]; count++) { %>
+
+            
+          
+           
+           
+       <li>
+        
+        <div class="row"  onmouseenter="canEdit(this)" onmouseleave="cantEdit(this)" onkeyup="canEdit(this)" >
+          <input type="checkbox" disabled="disabled" class="checkbox d-none d-lg-block">
+          <div class="col-md-7">
+      <input  class=" form-control" id="<%= question+"Answer"+(count+1)%>" name="<%= question+"Answer"+(count+1)%>"
+          value="<%= survey[question+"Answer"+(count+1)] %>" required readonly="readonly" >
+        </div>
+
+        <a href="#" class="btn btn-white  col-md-1   d-none d-md-block d-none d-lg-block canEdit "  onclick="editable(this)" style="visibility: hidden;">
+             
+          <i class="fas fa-pencil-alt fa-1x"></i>
+          </a>
+
+
+          <a href="#" class="btn btn-white btn-xs col-md-1  d-none d-md-block d-none d-lg-block canEdit" onclick="notEditable(this)" style="visibility: hidden;">
+         
+            <i class="far fa-stop-circle"></i>
+            </a>
+
+        </div>
+        </li>
+         
+
+           <br>
+
+                   <% } %>
+                  </ul>
+                  </div>
+
+                  <div class="btn btn-primary  d-none d-sm-block d-md-none">Edit</div>
+
+                  <div class="btn btn-primary   d-block d-sm-none">Edit</div>
+              </div>
+  
+  
+  
+   
+
+  
+
+   <% } %>
+  </div>
+   <% } %>
+
+
+   <!--      -->
+      
+   
+   <!--    -->
+
+  
+    </td>
+
+    
+
+    <button type="submit" id="mcSubmit" class="btn btn-primary " ><i class="fa fa-check-square-o"></i> Submit</button>
+    <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+  
+</form>
+</div>
+
+ 
+<script>
+  function checkitout(e){
+ 
+   // e.preventDefault();
+    var check=document.getElementById('flexSwitchCheckChecked');
+
+ 
+ 
+
+ if(e.checked)
+ {
+  check.value="on"; 
+  var a=document.getElementById('ActiveState').value="on"; 
+ 
+ }
+else
+ { 
+  check.value="off";  
+  var a=document.getElementById('ActiveState').value="off";
+  
+ 
+ }
+// document.getElementById('form').submit();
+return true;
+
+  }
+</script>
+
+ 
+    <script src="/Scripts/i2.js">
+=======
+=======
+        display: none;
+    }
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+</style>
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h1><%= title %></h1>
+            <form class="form" method="post" id="form">
+<<<<<<< HEAD
+
+              <% if(survey.Questionnaire_type=="multiplechoice"){ %>
+                <div class="sticky btn btn-primary" id="addQuestion"><i class="fa fa-check-square-o"></i> Add Question</div>
+            
+                <% } %>
+
+                <% if(survey.Questionnaire_type=="true_or_false"){ %>
+                  <div class=" sticky btn btn-primary" id="addQuestiontf" onclick="triggertf()"><i class="fa fa-check-square-o"></i> Add Question</div>
+              
+                  <% } %>
+
+              <div class="form-group">
+                <label for="surveyNameTextField">Survey Type</label>
+ 
+                <input type="text" class="form-control" id="surveyNameTextField"
+                placeholder="Survey Name" name="Questionnaire_type" value="<%= survey.Questionnaire_type %>" required readonly>
+              </div>
+=======
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+              <div class="form-group">
+                <label for="surveyNameTextField">Survey Name</label>
+ 
+                <input type="text" class="form-control" id="surveyNameTextField"
+                placeholder="Survey Name" name="surveyName" value="<%= survey.surveyName %>" required>
+              </div>
+              <div class="form-group">
+                <label for="startDateField">Start Date</label>
+                <input type="text" class="form-control" id="startDateField"
+                placeholder="Start Date" name="startDate" value="<%= survey.startDate %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="endDateField">End Date</label>
+                <input type="text" class="form-control" id="endDateField"
+                placeholder="End Date" name="endDate" value="<%= survey.endDate %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="surveyDescription">Description</label>
+                <textarea name="surveyDescription" class="form-control" id="surveyDescription"><%= survey.surveyDescription %> </textarea>
+ 
+              </div>
+
+
+              <!--Dynamically add questions-->
+<<<<<<< HEAD
+              <% var ql=survey.Questionlength;%>
+        <%  if(survey.Questionnaire_type=="multiplechoice") { %>  
+
+          <input id="ijsQuestionlength" name="Questionlength" value ="<%= survey.Questionlength %>">
+<% for (let count = 0; count < survey.Questionlength; count++) { %>
+
+   
+  
+=======
+        <%  if(survey.Questionnaire_type=="multiplechoice") { %>  
+
+<% for (let count = 0; count < survey.Questionlength; count++) { %>
+
+    <input id="ijsQuestionlength" value ="<%= survey.Questionlength %>">
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+
+    <%
+    let name =`Question${count+1}`;
+    
+%>
+    
+       
+      <div class="form-group question" id="" >
+        <hr class="questionline">
+        <label for="Question 1"> 
+
+ 
+        <%= name %>
+
+        </label>
+
+        <input type="text" class="form-control" id="Question1" placeholder=" Question 1" name="<%= name %>"
+            value=" <%= survey[name] %>" required>
+ 
+        <div class="answerCategory" id="answerCategory">
+                        <% //get answerlength %>
+                         <% let anslength=name+"AnswerLength" %>
+ 
+            <% for (let count = 0; count < survey[anslength]; count++) { %>
+<<<<<<< HEAD
+
+              
+=======
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+            
+           <div id="answerSett" class="anAnswer" style="display: inline-block;">
+            <label for="<%= name+"Answer"+(count+1)%>" style="display: inline-block;">  <%= "Answer"+" "+(count+1 )%></label>
+
+            <input type="text" class="form-control" id="<%= name+"Answer"+(count+1)%>" placeholder="   " name="<%= name+"Answer"+(count+1)%>"
+                value=" <%= survey[name+"Answer"+(count+1)] %>" required style="width: 300px;display: inline-block;">
+            </div>
+
+                    <% } %>
+
+                    
+
+            <div class="btn btn-primary" style="display:inline-block" id="addAnswer" onclick="trigger2(this)"><i
+                class="fa fa-check-square-o"></i> Add Answer</div>
+        </div>
+        <hr class="questionline">
+        </div> 
+    <% } %>
+    <% } %>
+
+<<<<<<< HEAD
+ 
+=======
+
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+
+    <!--True or False-->
+    <%  if(survey.Questionnaire_type=="true_or_false") { %>  
+
+<<<<<<< HEAD
+      <input id="ijsQuestionlength" name="Questionlengthtf" value ="<%= survey.Questionlengthtf %>">
+            
+        <% for (let cnt = 0; cnt < survey.Questionlengthtf; cnt++) { %>
+
+          
+        
+           
+            
+        
+            <%
+            let name =`Question${cnt+1}`;
+=======
+        <% for (let count = 0; count < survey.Questionlengthtf; count++) { %>
+        
+            <input id="ijsQuestionlength" value ="<%= survey.Questionlength %>">
+        
+            <%
+            let name =`Question${count+1}`;
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+            
+        %>
+            
+               
+              <div class="form-group question" id="" >
+                <hr class="questionline">
+                <label for="Question 1"> 
+        
+         
+                <%= name %>
+        
+                </label>
+        
+                <input type="text" class="form-control" id="Question1" placeholder=" Question 1" name="<%= name %>"
+                    value=" <%= survey[name] %>" required>
+         
+                <div class="answerCategory" id="answerCategory">
+                                <% //get answerlength %>
+                                 <% let anslength=name+"AnswerLength" %>
+         
+                    <% for (let count = 0; count < survey[anslength]; count++) { %>
+                    
+                   <div id="answerSett" class="anAnswer" style="display: inline-block;">
+<<<<<<< HEAD
+                    <label for="<%= name+"Answer"+(count+1)%>" style="display: inline-block;"> </label>
+                    
+                        User options are True and False<br><br>
+                     </div>
+=======
+                    <label for="<%= name+"Answer"+(count+1)%>" style="display: inline-block;">  <%= "Answer"+" "+(count+1 )%></label>
+                    <p>Change answer</p>
+                    <input type="text" class="form-control" id="<%= name+"Answer"+(count+1)%>" placeholder="   " name=""
+                        value=" <%= survey[name+"Answer"+(count+1)] %>" required style="width: 300px;display: inline-block;">
+                        <br>
+                        <input type="radio" id="" name="<%= name+"Answer"+(count+1)%>" value="true" onclick=""><label for="True">True</label><br>
+                        <input type="radio" id="" name="<%= name+"Answer"+(count+1)%>" value="false" onclick=""><label for="False">False</label><br>
+                    </div>
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+        
+                            <% } %>
+        
+                            
+        
+                  <!-- <div class="btn btn-primary" style="display:inline-block" id="addAnswer" onclick="trigger2(this)"><i
+                        class="fa fa-check-square-o"></i> Add Answer</div> -->
+                        
+                </div>
+                <hr class="questionline">
+                </div> 
+            <% } %>
+<<<<<<< HEAD
+             
+            <% } %>
+        
+      
+=======
+            <% } %>
+        
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+        
+            <!---->
+
+
+
+<<<<<<< HEAD
+              <button type="submit" id="mcSubmit" class="btn btn-primary "><i class="fa fa-check-square-o"></i> Submit</button>
+=======
+              <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            
+             <!--  Add Questions-->
+                <!-- this button replicates the question sample when clicked-->
+               
+<<<<<<< HEAD
+                <input type="text" name="" value="" style="display: none;">
+=======
+                <input type="text" name="Questionlength" value="">
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+            </form>
+
+                    <!--Make template questionnaire builder invisible -->
+                  
+                    <div class="form-group question" id="question_sample" style="display: none;">
+<<<<<<< HEAD
+
+                      
+  <input type="text" class="answerlength" value="<%= survey.Questionlength %>" style="display:;"> 
+=======
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+                      <hr class="questionline">
+                      <label for="Question 1">Question 1</label>
+  
+                      <input type="text" class="form-control" id="Question1" placeholder=" Question 1" name="Question"
+                          value="" required>
+  
+                      <!--Answer category -->
+                      <div class="answerCategory" id="answerCategory">
+                         
+                         <div id="answerSet" class="anAnswer" style="display: inline-block;">
+                          <label for="Answer1" style="display: inline-block;">Answer 1</label>
+                            
+                          <input type="text" class="form-control" id="Answer1" placeholder=" Answer 1" name="Answer1"
+                              value="" required style="width: 300px;display: inline-block;">
+                                
+                         
+                          </div>
+  
+                          <div class="btn btn-primary" style="display:inline-block" id="addAnswer" onclick="trigger2(this)"><i
+                                  class="fa fa-check-square-o"></i> Add Answer</div>
+  
+  
+                      </div>
+                      <hr class="questionline">
+                      </div> 
+                      <br><br><br>
+<<<<<<< HEAD
+
+
+                      <div class="form-group question " id="question_sampletf" style="display: none;">
+                        <hr class="questionline">
+                        <label for="Question 1">Question 1</label>
+            
+                        <input type="text" class="form-control" id="Question1" placeholder=" Question 1" name="Question" value=""
+                          required>
+            
+                        <!--Answer category -->
+                        <div class="answerCategory" id="answerCategory">
+            
+                          <div id="answerSettf" class="anAnswer" style="display: inline-block;">
+            
+                           <!-- <label for="Answer1" style="display: inline-block;">Answer 1</label>
+            
+                            <input type="text" class="form-control" id="Answer1" placeholder=" Answer 1" name="Answer1" value=""
+                              required style="width: 300px;display: inline-block;">
+            
+                                        -->
+            
+            
+                              <input type="radio" id="" name="" value="true" onclick=""><label for="True">True</label><br>
+                              <input type="radio" id="" name="" value="false" onclick=""><label for="False">False</label><br>
+                            
+            
+            
+            
+                            <div class="btn btn-primary" style="display:inline-block" id="removeAnswer"
+                              onclick="trigger2delete(this)"><i class="fa fa-check-square-o"></i> remove Answer</div>
+                          </div>
+            
+                         
+            
+            
+            
+                        </div>
+                        <hr class="questionline">
+            
+                        <input type="text" class="answerlength" value="1" style="display:none">
+                        
+            
+                       </div>
+=======
+                      <div class="btn btn-primary" id="addQuestion"><i class="fa fa-check-square-o"></i> Add Question</div>
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+      
+
+        </div>
+      </div>
+    </div>
+<<<<<<< HEAD
+    <script src="/Scripts/i2.js">
+=======
+    <script src="/Scripts/i.js">
+>>>>>>> db9cc6315db30e32d2b3bd70115ddc60bea45c33
+>>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
+
+
+    </script>
+
+<% include ../partials/footer.ejs %>
+<<<<<<< HEAD
+
+
+<!-- 
+  keeptitle seperate
+ 
+question:[
+{
+option1:"",
+responses:
+},
+{
+  opyion1:
+  respomses:
+}
+
+
+]
+
+
+
+-->
+=======
+>>>>>>> 541e205932f39f64c4261dce5bba8dab26c0a162
